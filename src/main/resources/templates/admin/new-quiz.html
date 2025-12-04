@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Quiz</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<h1>Create Quiz</h1>
+
+<div th:if="${message}">
+    <p th:text="${message}" style="color: green;"></p>
+</div>
+
+<form th:action="@{/admin/quizzes}" th:object="${quizForm}" method="post">
+    <div>
+        <label for="title">Quiz Title:</label>
+        <input type="text" id="title" th:field="*{title}" required/>
+    </div>
+
+    <h3>Questions</h3>
+
+    <div th:each="q, iter : *{questions}">
+        <hr/>
+        <p>Question <span th:text="${iter.index + 1}"></span></p>
+
+        <div>
+            <label>Text:</label>
+            <input type="text"
+                   th:field="*{questions[__${iter.index}__].text}"
+                   required/>
+        </div>
+
+        <div>
+            <label>Type:</label>
+            <select th:field="*{questions[__${iter.index}__].type}">
+                <option th:each="qt : ${questionTypes}"
+                        th:value="${qt}"
+                        th:text="${qt}"></option>
+            </select>
+        </div>
+
+        <div>
+            <p>MCQ Options (used when type = MCQ):</p>
+            <label>A:</label>
+            <input type="text"
+                   th:field="*{questions[__${iter.index}__].optionA}"/><br/>
+
+            <label>B:</label>
+            <input type="text"
+                   th:field="*{questions[__${iter.index}__].optionB}"/><br/>
+
+            <label>C:</label>
+            <input type="text"
+                   th:field="*{questions[__${iter.index}__].optionC}"/><br/>
+
+            <label>D:</label>
+            <input type="text"
+                   th:field="*{questions[__${iter.index}__].optionD}"/><br/>
+
+            <label>Correct option index (0-3 for MCQ, TRUE/FALSE for TrueFalse):</label>
+            <input type="text"
+                   th:field="*{questions[__${iter.index}__].correctAnswer}"/>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <button type="submit">Create Quiz</button>
+    </div>
+</form>
+
+</body>
+</html>
