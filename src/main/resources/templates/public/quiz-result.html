@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quiz Result</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<h1>Quiz Result</h1>
+
+<h2 th:text="${quiz.title}">Quiz Title</h2>
+
+<p>
+    Score:
+    <strong th:text="${submission.score}">0</strong>
+    /
+    <span th:text="${submission.maxScore}">0</span>
+</p>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Question</th>
+        <th>Your Answer</th>
+        <th>Correct Answer</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ans, iter : ${submission.answers}">
+        <td th:text="${iter.index + 1}">1</td>
+        <td th:text="${ans.question.text}">Question text</td>
+
+        <td th:text="${ans.answer}">Your answer</td>
+
+        <td th:text="${ans.question.correctAnswer != null ? ans.question.correctAnswer : 'N/A'}">
+            Correct answer
+        </td>
+
+        <td>
+            <span th:if="${ans.question.type.name() == 'TEXT'}">Not auto-graded</span>
+            <span th:if="${ans.question.type.name() != 'TEXT'}">
+                <span th:if="${ans.correct == null}">Not auto-graded</span>
+                <span th:if="${ans.correct == true}">Correct</span>
+                <span th:if="${ans.correct == false}">Incorrect</span>
+            </span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<p style="margin-top: 20px;">
+    <a th:href="@{'/quiz/' + ${quiz.id}}">Retake Quiz</a>
+</p>
+
+</body>
+</html>

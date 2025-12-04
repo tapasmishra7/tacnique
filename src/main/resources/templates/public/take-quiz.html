@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${quiz.title}">Quiz</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<h1 th:text="${quiz.title}">Quiz Title</h1>
+
+<form th:action="@{'/quiz/' + ${quiz.id} + '/submit'}" method="post">
+
+    <div th:each="question : ${quiz.questions}">
+        <hr/>
+        <p>
+            <strong th:text="${question.text}">Question text</strong>
+        </p>
+
+        <!-- MCQ -->
+        <div th:if="${question.type.name() == 'MCQ'}">
+            <div th:each="opt, iter : ${question.optionsList}">
+                <label>
+                    <input type="radio"
+                           th:name="${'q_' + question.id}"
+                           th:value="${iter.index}"/>
+                    <span th:text="${opt}">Option</span>
+                </label>
+                <br/>
+            </div>
+        </div>
+
+        <!-- TRUE_FALSE -->
+        <div th:if="${question.type.name() == 'TRUE_FALSE'}">
+            <label>
+                <input type="radio"
+                       th:name="${'q_' + question.id}"
+                       value="TRUE"/>
+                True
+            </label>
+            <br/>
+            <label>
+                <input type="radio"
+                       th:name="${'q_' + question.id}"
+                       value="FALSE"/>
+                False
+            </label>
+        </div>
+
+        <!-- TEXT -->
+        <div th:if="${question.type.name() == 'TEXT'}">
+            <textarea th:name="${'q_' + question.id}" rows="3" cols="50"></textarea>
+        </div>
+
+    </div>
+
+    <div style="margin-top: 20px;">
+        <button type="submit">Submit Quiz</button>
+    </div>
+</form>
+
+</body>
+</html>

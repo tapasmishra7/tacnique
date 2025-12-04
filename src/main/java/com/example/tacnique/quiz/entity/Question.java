@@ -1,6 +1,10 @@
 package com.example.tacnique.quiz.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Transient;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 public class Question {
@@ -58,4 +62,12 @@ public class Question {
     public String getCorrectAnswer() { return correctAnswer; }
 
     public void setCorrectAnswer(String correctAnswer) { this.correctAnswer = correctAnswer; }
+
+    @Transient
+    public List<String> getOptionsList() {
+        if (optionsJson == null || optionsJson.isBlank()) {
+            return Collections.emptyList();
+        }
+        return Arrays.asList(optionsJson.split("\\|\\|"));
+    }
 }
