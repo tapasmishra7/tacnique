@@ -86,7 +86,11 @@ public class AdminQuizController {
 
         quizService.save(quiz);
 
-        redirectAttributes.addFlashAttribute("message", "Quiz created successfully with ID: " + quiz.getId());
+        redirectAttributes.addFlashAttribute(
+                "message",
+                "Quiz created successfully with ID: " + quiz.getId()
+                        + " (public link: /quiz/" + quiz.getId() + ")"
+        );
         return "redirect:/admin/quizzes/new";
     }
 }

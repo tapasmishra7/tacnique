@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Quiz Management</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+<h1>Quiz Management System</h1>
+
+<p>
+  <a href="/admin/quizzes/new">Create a new quiz (admin)</a>
+</p>
+
+<h2>Available Quizzes</h2>
+<div th:if="${quizzes.isEmpty()}">
+  <p>No quizzes created yet.</p>
+</div>
+<ul th:if="${!quizzes.isEmpty()}">
+  <li th:each="quiz : ${quizzes}">
+    <span th:text="${quiz.title}">Quiz title</span>
+    -
+    <a th:href="@{'/quiz/' + ${quiz.id}}">Take quiz</a>
+  </li>
+</ul>
+
+</body>
+</html>

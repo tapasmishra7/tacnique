@@ -5,6 +5,7 @@ import com.example.tacnique.quiz.entity.Quiz;
 import com.example.tacnique.quiz.repository.QuizRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,5 +23,9 @@ public class QuizService {
 
     public Optional<Quiz> findById(Long id) {
         return quizRepository.findById(id);
+    }
+
+    public List<Quiz> findAll() {
+        return quizRepository.findAll();
     }
 }
