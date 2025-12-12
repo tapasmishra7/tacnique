@@ -67,8 +67,8 @@ Focus is on:
 
 - **Backend**: Spring Boot (Spring Web, Spring Data JPA)
 - **Frontend**: Server-side rendered HTML via Thymeleaf (counts as "Java frontend")
-- **Database**: MySQL (or H2 in-memory with MySQL-like schema)
-- **Build Tool**: Maven or Gradle
+- **Database**: MySQL
+- **Build Tool**: Maven
 - **IDE**: IntelliJ / VS Code / Eclipse (locally)
 - **AI Agent**: CLI-based coding assistant to generate boilerplate and speed up development
 
